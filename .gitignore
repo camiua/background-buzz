@@ -218,3 +218,18 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# --- Background Buzz ---
+# Secretos
+.env
+
+# Entornos y dependencias
+.venv/
+node_modules/
+
+# Datos y modelos (no se suben: spec §1.10)
+backend/data/
+backend/models/
+*.mp4
+*.mov
+*.avi
