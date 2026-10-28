@@ -1,0 +1,12 @@
+# Saltos de línea de Linux (LF) en todos los archivos de texto, también en Windows.
+* text=auto eol=lf
+
+# Binarios: Git no los modifica.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.mp4 binary
+*.mov binary
+*.avi binary
+*.pt binary
+*.onnx binary
