@@ -29,9 +29,9 @@ Conceptos: automatización con scripts, GitHub CLI, idempotencia.
 Hecho: todas las tareas tienen su issue, con labels y milestone, y aparecen en el tablero.
 
 **T-0.5 · Estructura base y configuración** ⚪ · dep: T-0.4
-`.gitignore` ampliado (Python, Node, `.env`, `.venv`, `node_modules`, `backend/data/`, `backend/models/`, `*.mp4`, `*.mov`, `*.avi`). `.env.example` con todas las variables de la spec §1.9, sin valores. `backend/` con `uv init`, `pyproject.toml` (configuración de ruff y pytest, grupo de dependencias `train` para Ultralytics) y `uv.lock`.
-Conceptos: `.gitignore`, variables de entorno, secretos, gestión de dependencias con uv y lockfile.
-Hecho: `git status` no muestra nunca `.env` aunque exista, y `uv run ruff check .` se ejecuta sin errores.
+`.gitignore` ampliado (Python, Node, `.env`, `.venv`, `node_modules`, `backend/data/`, `backend/models/`, `*.mp4`, `*.mov`, `*.avi`). `.gitattributes` con `* text=auto eol=lf`, para que los archivos de texto usen siempre saltos de línea de Linux (LF), también en Windows. `.env.example` con todas las variables de la spec §1.9, sin valores. `backend/` con `uv init`, `pyproject.toml` (configuración de ruff y pytest, grupo de dependencias `train` para Ultralytics) y `uv.lock`.
+Conceptos: `.gitignore`, `.gitattributes` y saltos de línea (LF y CRLF), variables de entorno, secretos, gestión de dependencias con uv y lockfile.
+Hecho: `git status` no muestra nunca `.env` aunque exista, `git ls-files --eol` muestra `i/lf` en todos los archivos de texto y `uv run ruff check .` se ejecuta sin errores.
 
 **T-0.6 · pre-commit: secretos y estilo** 🔐 · dep: T-0.5
 `.pre-commit-config.yaml` con gitleaks y ruff (revisión y formato).
