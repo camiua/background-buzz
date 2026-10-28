@@ -204,6 +204,7 @@ def gh(*args: str, stdin: str | None = None) -> str:
         capture_output=True,
         text=True,
         encoding="utf-8",
+        check=False,
     )
     if result.returncode != 0:
         sys.exit(f"Error al ejecutar gh {' '.join(args[:3])}…\n{result.stderr}")
