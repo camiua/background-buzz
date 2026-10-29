@@ -203,8 +203,8 @@ Closes #N
 | Milestone | Fecha límite |
 |---|---|
 | Arranque | mar 27 oct |
-| Nivel Esencial | mié 28 oct |
-| Nivel Medio | jue 29 oct |
+| Nivel Esencial | jue 29 oct |
+| Nivel Medio | vie 30 oct |
 | Nivel Avanzado | sáb 31 oct |
 | Nivel Experto | dom 1 nov, 20:00 (código congelado) |
 | Entrega | mar 3 nov (exposición: mié 4 nov) |

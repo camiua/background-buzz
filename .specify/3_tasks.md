@@ -4,7 +4,7 @@ Cada tarea se convierte en una issue de GitHub con el mismo ID en el título. **
 
 Leyenda: 🟢 Esencial · 🟡 Medio · 🟠 Avanzado · 🔴 Experto · ⭐ Mejora de producto · 🔐 Seguridad · ⚪ Soporte
 
-## Fase 0 — Arranque (mar 27)
+## Fase 0 — Arranque (mar 27 – mié 28)
 
 Las issues se crean justo después de las specs, para que todo el trabajo posterior tenga su issue. Las tareas se hacen en el orden de su número.
 
@@ -47,9 +47,9 @@ Hecho: un PR muestra las comprobaciones en verde, y no se puede fusionar si fall
 uv, Node LTS y Docker Desktop instalados. Cuentas de Roboflow y Google (Colab y Drive). Las cuentas de Supabase, Render y Vercel se crean en T-4.5.
 Hecho: `uv --version`, `node --version` y `docker run hello-world` funcionan, y se abre un notebook de Colab con GPU.
 
-## Fase 1 — Nivel Esencial (mar 27 – mié 28)
+## Fase 1 — Nivel Esencial (jue 29)
 
-**T-1.1 · Sesión de fotos** 🟢 · mar 27 (tarde)
+**T-1.1 · Sesión de fotos** 🟢 · jue 29
 Latas de Red Bull, Monster (varias variantes) y Burn, más imágenes negativas, según la spec §1.8 (composición y variedad). Capturas de streams si se encuentran (R-6). Se adelanta al martes porque el etiquetado depende de ella.
 Conceptos: variedad de datos, parecido entre datos de entrenamiento y de uso real, imágenes negativas.
 Hecho: al menos 100 imágenes por marca y 50 negativas, con todas las situaciones de variedad cubiertas en cada marca.
@@ -73,10 +73,10 @@ Hecho: con una imagen del conjunto de test, el script genera una imagen con la c
 README (qué es, para quién, cómo instalar con uv y cómo usar `detect_image.py`), docstrings y una captura en `docs/img/`. Primeros apuntes en Aprendizajes.
 Hecho: alguien que no conoce el proyecto puede ejecutar `detect_image.py` siguiendo el README.
 
-**T-1.GATE · Nivel Esencial** 🟢 · mié 28 · dep: T-1.1 a T-1.5
+**T-1.GATE · Nivel Esencial** 🟢 · jue 29 · dep: T-1.1 a T-1.5
 Hecho: gate de la spec §1.2 cumplido, PR `develop` → `main` fusionado, tag `v1-esencial` y release con `best.pt` como asset.
 
-## Fase 2 — Nivel Medio (jue 29)
+## Fase 2 — Nivel Medio (vie 30)
 
 **T-2.1 · Lectura y muestreo de vídeo** 🟡 · dep: T-1.GATE
 `detector/video.py` con OpenCV: salto entre fotogramas y frecuencia real según la spec §1.7. Tests con un vídeo sintético generado dentro del propio test.
@@ -107,26 +107,26 @@ Hecho: los dos vídeos tienen sus intervalos anotados y su porcentaje real por m
 README (uso de `detect_video.py` y exportación a ONNX) y Aprendizajes (ONNX y pre/postprocesado).
 Hecho: el README explica cómo generar un vídeo con detecciones desde cero.
 
-**T-2.GATE · Nivel Medio** 🟡 · jue 29 · dep: T-2.1 a T-2.6
+**T-2.GATE · Nivel Medio** 🟡 · vie 30 · dep: T-2.1 a T-2.6
 Hecho: gate de la spec §1.2 cumplido, PR `develop` → `main` fusionado, tag `v2-medio` y release con `best.onnx` como asset.
 
-## Fase 3 — Nivel Avanzado (vie 30 – sáb 31)
+## Fase 3 — Nivel Avanzado (sáb 31)
 
-**T-3.1 · Confianza en pantalla** 🟠 · vie 30
+**T-3.1 · Confianza en pantalla** 🟠 · sáb 31
 `detector/drawing.py` muestra la marca y la confianza (por ejemplo, `monster 87%`).
 Hecho: el vídeo de salida muestra nombre y porcentaje en cada detección.
 
-**T-3.2 · PostgreSQL y tablas** 🟠 · vie 30
+**T-3.2 · PostgreSQL y tablas** 🟠 · sáb 31
 Servicio `db` en `docker-compose.yml` con volumen. `db/session.py` y `db/models.py` (spec §1.4). Tablas creadas al arrancar con `create_all`.
 Conceptos: ORM, sesión, claves primaria y foránea, volúmenes de Docker.
 Hecho: con `docker compose up db`, al arrancar se crean las dos tablas y se ven con `psql`.
 
-**T-3.3 · Guardado de detecciones y recortes** 🟠 · vie 30 · dep: T-3.2
+**T-3.3 · Guardado de detecciones y recortes** 🟠 · sáb 31 · dep: T-3.2
 `db/crud.py`, `detector/crops.py` y `storage.py` (en disco). Tests con SQLite.
 Conceptos: CRUD, transacciones, recortes con slicing de NumPy, punto único de acceso al almacenamiento.
 Hecho: tests en verde y, tras un análisis de prueba, las detecciones están en la base de datos y cada `crop_path` apunta a un recorte que existe.
 
-**T-3.4 · Informe** 🟠 · vie 30 · dep: T-3.3
+**T-3.4 · Informe** 🟠 · sáb 31 · dep: T-3.3
 `db/reports.py` con SQL estándar y redondeo en Python (plan §2.4), según las reglas de la spec §1.7.
 Conceptos: `GROUP BY`, `COUNT(DISTINCT)`, agregación.
 Hecho: tests en verde para cada regla de la spec §1.7: varias latas de la misma marca en un fotograma cuentan una vez, los porcentajes pueden sumar más de 100 y una marca ausente no aparece.
@@ -150,7 +150,7 @@ Hecho: gate de la spec §1.2 cumplido, PR `develop` → `main` fusionado y tag `
 
 ## Fase 4 — Nivel Experto (dom 1, hasta las 20:00)
 
-**T-4.1 · API** 🔴 · dom 1 (se empieza el sábado si hay margen)
+**T-4.1 · API** 🔴 · dom 1
 `main.py`, `api/schemas.py` y `api/routes/` con las cuatro rutas de la spec §1.6. Validación de archivos (§1.10), errores controlados y CORS. Tests de las rutas con el detector falso.
 Conceptos: subida de archivos (multipart), códigos de estado HTTP, Pydantic, `TestClient`, inyección de dependencias.
 Hecho: tests de rutas en verde y, desde `/docs`, un vídeo se sube correctamente y unos archivos de prueba devuelven 413 y 415.
@@ -170,18 +170,18 @@ Vite + React + Tailwind 4. `src/api/client.js`, subida del vídeo, estado con co
 Conceptos: componentes, props, `useState`, `useEffect`, consultas periódicas (polling), `FormData`.
 Hecho: desde la web se sube un vídeo, se ve el avance y aparece el informe; en vista móvil todo se ve en una columna; el CI del front está en verde.
 
-**T-4.5 · Despliegue** 🔴 · dom 1 · dep: T-4.3, T-4.4
-Supabase (base de datos y bucket de recortes, `storage.py` con Supabase), Render (API desde el `Dockerfile`) y Vercel (front con `VITE_API_URL`). CORS limitado al front. Se comprueban las condiciones de los planes gratuitos (R-9).
+**T-4.5 · Despliegue** 🔴 · dom 1, opcional · dep: T-4.3, T-4.4
+Opcional desde el reajuste del 28 de octubre (ver plan de recorte). Supabase (base de datos y bucket de recortes, `storage.py` con Supabase), Render (API desde el `Dockerfile`) y Vercel (front con `VITE_API_URL`). CORS limitado al front. Se comprueban las condiciones de los planes gratuitos (R-9).
 Conceptos: variables de entorno en producción, CORS, arranque en frío.
 Hecho: gate de la spec §1.2 Experto cumplido desde la URL pública.
 
-**T-4.GATE · Nivel Experto y código congelado** 🔴 · dom 1, 20:00 · dep: T-4.1 a T-4.5
-Hecho: PR `develop` → `main` fusionado y tag `v4-experto`. A partir de aquí solo se corrigen errores.
+**T-4.GATE · Nivel Experto y código congelado** 🔴 · dom 1, 20:00 · dep: T-4.1 a T-4.4 (y T-4.5 si se completa)
+Hecho: gate de la spec §1.2 Experto cumplido, PR `develop` → `main` fusionado y tag `v4-experto`. A partir de aquí solo se corrigen errores.
 
 ## Fase 5 — Entrega y exposición (dom 1 – mié 4)
 
 **T-5.1 · README final** · dom 1 (noche)
-Captura o GIF, diagrama, insignia del CI, instalación con Docker, URL pública, stack, estructura y próximos pasos.
+Captura o GIF, diagrama, insignia del CI, instalación con Docker, URL pública (si se completa T-4.5), stack, estructura y próximos pasos.
 
 **T-5.2 · Decisiones, aprendizajes y cobertura** · lun 2
 `docs/decisiones.md` completo y los IDs de tarea añadidos a la cobertura del briefing (spec §1.12).
@@ -198,7 +198,7 @@ Tablero sin tareas en curso, `main` actualizada y tag `v1.0`.
 **T-5.6 · Entrega** · mar 3
 
 **T-5.7 · Ensayo y plan B** · mar 3
-Dos ensayos cronometrados. Demo en local preparada, vídeo de la demo listo, servicio de Render despertado antes de empezar y prueba de compartir pantalla.
+Dos ensayos cronometrados. Demo en local preparada, vídeo de la demo listo, servicio de Render despertado antes de empezar (si hay despliegue) y prueba de compartir pantalla.
 
 **T-5.8 · Exposición** · mié 4
 
@@ -212,12 +212,11 @@ Dos ensayos cronometrados. Demo en local preparada, vídeo de la demo listo, ser
 
 | Día | Trabajo | Cierre |
 |---|---|---|
-| mar 27 | Fase 0 completa · T-1.1 (tarde) | |
-| mié 28 | T-1.2 a T-1.5 | `v1-esencial` |
-| jue 29 | Fase 2 | `v2-medio` |
-| vie 30 | T-3.1 a T-3.4 | |
-| sáb 31 | T-3.5 a T-3.7 · T-4.1 si hay margen | `v3-avanzado` |
-| dom 1 | T-4.1 a T-4.5 · código congelado a las 20:00 · T-5.1 | `v4-experto` |
+| mar 27 – mié 28 | Fase 0 completa | |
+| jue 29 | Fase 1: T-1.1 a T-1.5 (si no da tiempo, el entrenamiento de T-1.3 queda en marcha por la noche y T-1.4 pasa al viernes por la mañana) | `v1-esencial` |
+| vie 30 | Fase 2 | `v2-medio` |
+| sáb 31 | Fase 3: T-3.1 a T-3.7 | `v3-avanzado` |
+| dom 1 | T-4.1 a T-4.4 · T-4.5 si hay margen · código congelado a las 20:00 · T-5.1 | `v4-experto` |
 | lun 2 | T-5.2 a T-5.5 | `v1.0` |
 | mar 3 | Entrega · ensayo y plan B | |
 | mié 4 | Exposición | |
@@ -232,5 +231,13 @@ Si hay retraso, se recorta en este orden:
 4. T-4.4 reducido: solo subida del vídeo y tabla del informe, sin más diseño.
 
 No se recortan: los gates hasta el nivel Avanzado, la guía de etiquetado y el conjunto de test fijo, los tests de las reglas del informe, la evaluación de la spec §1.11, el código congelado, el vídeo de la demo ni el ensayo.
+
+### Reajuste del 28 de octubre
+
+La Fase 0 terminó el miércoles 28 en lugar del martes 27, y las latas para el dataset se consiguen el jueves 29. Se aplica el plan de recorte así:
+
+- El nivel Esencial pasa al jueves 29 y el Medio al viernes 30. El Avanzado se comprime en el sábado 31 y mantiene su fecha.
+- **Punto 3 aplicado de forma preventiva:** el despliegue (T-4.5) pasa a ser opcional. El nivel Experto se compromete en local con Docker; si el domingo hay margen, se despliega.
+- El código congelado, la entrega y la exposición no cambian.
 
 Al congelar el código no entra ninguna funcionalidad nueva. Lo que no esté terminado el domingo a las 20:00 se presenta sin ello.

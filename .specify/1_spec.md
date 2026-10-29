@@ -10,7 +10,7 @@ Las bebidas energéticas son uno de los productos con más presencia en el conte
 
 Restricción principal: coste cero. Solo se usan servicios en plan gratuito (Google Colab, Roboflow, Supabase, Render y Vercel), aceptando sus límites de memoria, velocidad y uso.
 
-Alcance comprometido: los cuatro niveles del briefing (Esencial, Medio, Avanzado y Experto), con el Avanzado como objetivo seguro. Trabajo individual. Código congelado: domingo 1 de noviembre, 20:00. Entrega: martes 3 de noviembre. Exposición: miércoles 4 de noviembre (online, por confirmar).
+Alcance comprometido: los cuatro niveles del briefing (Esencial, Medio, Avanzado y Experto), con el Avanzado como objetivo seguro. Desde el reajuste del 28 de octubre (plan de recorte en `3_tasks.md`), el Experto se compromete en local y el despliegue en la nube es opcional. Trabajo individual. Código congelado: domingo 1 de noviembre, 20:00. Entrega: martes 3 de noviembre. Exposición: miércoles 4 de noviembre (online, por confirmar).
 
 **Ámbito:** marcas comercializadas en España, analizadas en vídeos de streamers de habla hispana.
 **Marcas (clases del modelo):** `redbull`, `monster`, `burn`.
@@ -21,10 +21,10 @@ Cada nivel se cierra con un **gate** (criterio comprobable) y un **tag** de Git,
 
 | Nivel | Qué añade | Gate | Tag | Milestone |
 |---|---|---|---|---|
-| 🟢 Esencial | Modelo YOLO preentrenado reentrenado con dataset propio; detecta al menos una marca en una imagen y dibuja su caja. Repo con ramas y commits limpios, código documentado y README | Con una imagen que no estaba en el entrenamiento, el modelo dibuja la caja sobre el logo | `v1-esencial` | mié 28 oct |
-| 🟡 Medio | Procesa archivos de vídeo; muestra el nombre de la marca debajo de cada detección | Con un vídeo de prueba, se genera un vídeo de salida con las cajas y el nombre de la marca | `v2-medio` | jue 29 oct |
+| 🟢 Esencial | Modelo YOLO preentrenado reentrenado con dataset propio; detecta al menos una marca en una imagen y dibuja su caja. Repo con ramas y commits limpios, código documentado y README | Con una imagen que no estaba en el entrenamiento, el modelo dibuja la caja sobre el logo | `v1-esencial` | jue 29 oct |
+| 🟡 Medio | Procesa archivos de vídeo; muestra el nombre de la marca debajo de cada detección | Con un vídeo de prueba, se genera un vídeo de salida con las cajas y el nombre de la marca | `v2-medio` | vie 30 oct |
 | 🟠 Avanzado | Confianza visible junto al nombre; modelo multimarca (tres marcas); base de datos con detecciones y recortes; informe de tiempo y porcentaje (§1.7); model card en el README | Con un vídeo con varias marcas, se guardan detecciones y recortes, se genera el informe y las métricas de §1.11 están medidas y documentadas | `v3-avanzado` | sáb 31 oct |
-| 🔴 Experto | API con procesamiento en segundo plano y validación de archivos; front web responsive; despliegue en Vercel, Render y Supabase | Desde la URL pública del front se sube un vídeo corto y se obtiene el informe | `v4-experto` | dom 1 nov, 20:00 |
+| 🔴 Experto | API con procesamiento en segundo plano y validación de archivos; front web responsive; despliegue en Vercel, Render y Supabase | Desde el front se sube un vídeo corto y se obtiene el informe: en local con Docker como compromiso, y desde la URL pública si se completa el despliegue (opcional desde el reajuste del 28 oct) | `v4-experto` | dom 1 nov, 20:00 |
 
 ## 1.3 Decisiones de arquitectura
 
@@ -300,7 +300,7 @@ Los IDs de tarea se añaden a esta tabla al cerrar `3_tasks.md`.
 
 | # | Riesgo | Impacto | Mitigación |
 |---|---|---|---|
-| R-1 | Poco tiempo (6 días hasta la congelación, trabajo individual) | Alto | Cada nivel termina con una versión completa y etiquetada; plan de recorte en `3_tasks.md`; el Avanzado es el objetivo seguro |
+| R-1 | Poco tiempo (6 días hasta la congelación, trabajo individual) | Alto | Cada nivel termina con una versión completa y etiquetada; plan de recorte en `3_tasks.md`, aplicado el 28 oct (despliegue opcional); el Avanzado es el objetivo seguro |
 | R-2 | Crear y etiquetar el dataset lleva más de lo previsto | Alto | Empezar el primer día; tres marcas; etiquetado asistido |
 | R-3 | Límites o cortes de la GPU gratuita de Colab | Medio | Guardar pesos y checkpoints en Google Drive |
 | R-4 | Logos pequeños, tapados o con mala luz en los streams | Medio | Fotos tipo stream, capturas reales y aumento de datos; limitaciones documentadas en la model card |
