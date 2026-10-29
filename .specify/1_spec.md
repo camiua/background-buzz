@@ -8,7 +8,7 @@ Fuente de verdad del diseño. Si algo de aquí cambia, se actualiza este archivo
 
 Las bebidas energéticas son uno de los productos con más presencia en el contenido de gaming y streaming, cuyo público es mayoritariamente joven. Las organizaciones de salud y los observatorios de consumo que quieren medir esa exposición tienen que revisar horas de vídeo a mano. Background Buzz es una prueba de concepto que analiza vídeos de streams, detecta los logos de bebidas energéticas con un modelo de visión por computador y genera un informe con cuánto tiempo y qué porcentaje del vídeo aparece cada marca, guardando cada detección en una base de datos.
 
-Restricción principal: coste cero. Solo se usan servicios en plan gratuito (Google Colab, Roboflow, Supabase, Render y Vercel), aceptando sus límites de memoria, velocidad y uso.
+Restricción principal: coste cero. Solo se usan servicios en plan gratuito (Kaggle, Roboflow, Supabase, Render y Vercel), aceptando sus límites de memoria, velocidad y uso.
 
 Alcance comprometido: los cuatro niveles del briefing (Esencial, Medio, Avanzado y Experto), con el Avanzado como objetivo seguro. Desde el reajuste del 28 de octubre (plan de recorte en `3_tasks.md`), el Experto se compromete en local y el despliegue en la nube es opcional. Trabajo individual. Código congelado: domingo 1 de noviembre, 20:00. Entrega: martes 3 de noviembre. Exposición: miércoles 4 de noviembre (online, por confirmar).
 
@@ -33,7 +33,7 @@ Cada nivel se cierra con un **gate** (criterio comprobable) y un **tag** de Git,
 | D-1 | YOLO (Ultralytics), versión nano o small | Detector de una sola pasada, diseñado para tiempo real; las versiones ligeras funcionan en CPU. |
 | D-2 | Transfer learning sobre un modelo preentrenado, con dataset propio | Con unas 100-150 imágenes por marca es suficiente. El briefing pide reentrenar un modelo preentrenado con imágenes obtenidas por los propios expertos. |
 | D-3 | Roboflow para etiquetar, aumentar datos y exportar | Etiquetado asistido y aumento de datos sin código; exporta en formato YOLO. |
-| D-4 | Entrenamiento en Google Colab | El portátil no tiene GPU NVIDIA; Colab ofrece GPU gratuita. Los pesos se guardan en Google Drive por si se corta la sesión. |
+| D-4 | Entrenamiento en Kaggle Notebooks (GPU T4) | El portátil no tiene GPU NVIDIA; Kaggle ofrece GPU gratuita con un cupo semanal y ejecuta el notebook en segundo plano (Save & Run All). Sustituye a Google Colab desde el 29 oct, cuando Colab alcanzó su límite de GPU (R-3). Los pesos se guardan en la salida de cada versión del notebook. |
 | D-5 | Inferencia en CPU | El briefing no exige tiempo real; un modelo ligero es suficiente en el portátil y en Render. |
 | D-6 | Muestreo de unos 5 fotogramas por segundo | Reduce el tiempo de análisis en CPU y es suficiente para medir el tiempo de aparición. |
 | D-7 | Inferencia con ONNX Runtime desde el nivel Medio, en local y en la nube. Ultralytics solo se usa para entrenar, exportar a ONNX y en el nivel Esencial | Un solo camino de código, igual en local y en Render. Elimina PyTorch de la imagen de Docker y reduce la memoria necesaria. |
@@ -229,6 +229,7 @@ En local, los recortes se guardan en `CROPS_DIR`. Si están definidas las variab
 | Límites en la nube | 30 segundos y 50 MB |
 | Límites en local | Configurables (§1.9) |
 | Secretos | Solo en `.env`, que nunca se sube; `.env.example` con valores vacíos |
+| Secretos en notebooks | La clave de la API de Roboflow va en los Secrets de Kaggle (Add-ons → Secrets), nunca escrita en el notebook |
 | Archivos pesados | Dataset en Roboflow; vídeos fuera de Git; modelo entrenado como asset de una GitHub Release |
 | Vídeos de terceros | Fragmentos de streams públicos, solo con fines académicos y sin redistribuirlos |
 | Recortes | Solo la zona de la caja detectada |
@@ -302,7 +303,7 @@ Los IDs de tarea se añaden a esta tabla al cerrar `3_tasks.md`.
 |---|---|---|---|
 | R-1 | Poco tiempo (6 días hasta la congelación, trabajo individual) | Alto | Cada nivel termina con una versión completa y etiquetada; plan de recorte en `3_tasks.md`, aplicado el 28 oct (despliegue opcional); el Avanzado es el objetivo seguro |
 | R-2 | Crear y etiquetar el dataset lleva más de lo previsto | Alto | Empezar el primer día; tres marcas; etiquetado asistido |
-| R-3 | Límites o cortes de la GPU gratuita de Colab | Medio | Guardar pesos y checkpoints en Google Drive |
+| R-3 | Límites o cortes de la GPU gratuita (se cumplió en Colab el 29 oct) | Medio | Entrenamiento en Kaggle (D-4), con Colab y CPU como alternativas; pesos en la salida de cada versión del notebook |
 | R-4 | Logos pequeños, tapados o con mala luz en los streams | Medio | Fotos tipo stream, capturas reales y aumento de datos; limitaciones documentadas en la model card |
 | R-5 | Confusión entre variantes de color de Monster | Medio | Fotografiar varias variantes |
 | R-6 | Poca presencia de estas marcas en streams españoles | Medio | Comprobarlo antes de cerrar el dataset; vídeos grabados por la autora para la demo |
