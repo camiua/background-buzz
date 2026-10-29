@@ -57,8 +57,8 @@ PHASE_LABELS: dict[str, str] = {
 # desplace un día según la zona horaria. La hora exacta vive en el plan.
 MILESTONES: dict[str, tuple[str, str | None]] = {
     "0": ("Arranque", "2026-10-27T12:00:00Z"),
-    "1": ("Nivel Esencial", "2026-10-28T12:00:00Z"),
-    "2": ("Nivel Medio", "2026-10-29T12:00:00Z"),
+    "1": ("Nivel Esencial", "2026-10-29T12:00:00Z"),
+    "2": ("Nivel Medio", "2026-10-30T12:00:00Z"),
     "3": ("Nivel Avanzado", "2026-10-31T12:00:00Z"),
     "4": ("Nivel Experto", "2026-11-01T12:00:00Z"),
     "5": ("Entrega", "2026-11-03T12:00:00Z"),
