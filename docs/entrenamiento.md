@@ -115,6 +115,12 @@ Estas métricas son **optimistas** y no prueban que el modelo funcione en stream
 - **Sin casos lejanos ni con poca luz en test:** los lejanos solo se evalúan en validación (`burn-4-lejos`) y la penumbra no se evalúa (`burn-3-poca-luz` está en entrenamiento).
 - **Riesgo de falsos positivos con fuego de videojuegos:** el logo de Burn es una llama. Sin medir todavía.
 
+Requisitos del dataset de la spec §1.8 que la v1 todavía no cumple:
+
+- **Negativos:** 26 imágenes sin logo, frente a las 50 que pide la spec.
+- **Variantes de Monster:** solo la lata rosa; la spec pide varias variantes de color.
+- **Capturas de streams reales:** ninguna; todas las imágenes son de vídeos propios.
+
 El mAP50-95 de 0,77 indica que el modelo encuentra los logos, pero las cajas no se ajustan del todo a las etiquetadas.
 
 La matriz de confusión (`confusion_matrix.png`, en la salida de Kaggle) se analiza en la revisión manual del nivel Avanzado.
