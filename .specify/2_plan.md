@@ -111,6 +111,7 @@ background-buzz/
 - **Los vídeos se validan antes de procesarse** (spec §1.10).
 - **Errores controlados:** cada fallo se traduce al código de la spec §1.6 (400, 404, 409, 413, 415, 422) con un mensaje claro.
 - **Type hints y docstring breve** en todas las funciones públicas.
+- **Cajas legibles:** cada marca tiene un color fijo, y la etiqueta (marca y confianza) lleva fondo para leerse sobre cualquier imagen.
 
 ## 2.5 Reglas del frontend
 
@@ -203,11 +204,11 @@ Closes #N
 | Milestone | Fecha límite |
 |---|---|
 | Arranque | mar 27 oct |
-| Nivel Esencial | jue 29 oct |
-| Nivel Medio | vie 30 oct |
-| Nivel Avanzado | sáb 31 oct |
-| Nivel Experto | dom 1 nov, 20:00 (código congelado) |
-| Entrega | mar 3 nov (exposición: mié 4 nov) |
+| Nivel Esencial | dom 8 nov |
+| Nivel Medio | dom 8 nov |
+| Nivel Avanzado | lun 9 nov, 20:00 (código congelado) |
+| Nivel Experto | Reducido en local (T-4.6, lun 9 hasta las 20:00); completo en la versión 2 |
+| Entrega | mar 10 nov (entrega y exposición) |
 | Extras | sin fecha |
 
 - **Tablero** (GitHub Projects): Backlog · To Do · In Progress · In Review · Done, con la descripción de cada columna en español. Cada día se mueven a To Do las tareas previstas.
@@ -230,7 +231,7 @@ Se escribe al cerrar cada nivel, no al final.
 |---|---|
 | `README.md` | Qué es y para quién, captura o GIF, diagrama, cómo arrancarlo con Docker, uso de los scripts y de la API, stack, estructura, model card (datos, métricas, limitaciones), próximos pasos y licencia |
 | `docs/decisiones.md` | Decisiones ampliadas y sección Aprendizajes |
-| `docs/entrenamiento.md` | Evolución del modelo (v1 → vN): dataset, aumento de datos, parámetros y métricas de cada versión |
+| `docs/entrenamiento.md` | Evolución del modelo (v1 → vN): procedencia y tamaño del dataset, aumento de datos, hiperparámetros con su motivo (épocas, lote, umbral), métricas de cada versión, revisión manual y análisis de fallos |
 
 ## 2.11 Definición de "hecho" (válida para toda tarea)
 
