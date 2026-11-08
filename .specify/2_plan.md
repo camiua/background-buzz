@@ -18,7 +18,7 @@ Repo: `background-buzz` · rama de trabajo: `develop` · rama estable: `main`
 | Frontend | React · Vite · JavaScript · Tailwind CSS 4 |
 | Backend | Python · FastAPI · Pydantic · pydantic-settings · uv |
 | Visión | Ultralytics YOLO (entrenamiento, exportación y nivel Esencial) · ONNX Runtime (inferencia desde 🟡) · OpenCV |
-| Dataset y entrenamiento | Roboflow · Google Colab |
+| Dataset y entrenamiento | Roboflow · Kaggle Notebooks |
 | Base de datos | PostgreSQL (Docker en local, Supabase en la nube) · SQLAlchemy |
 | Calidad | pytest · ruff · pre-commit · gitleaks · GitHub Actions |
 | Entorno | Docker · Docker Compose · Git y GitHub |
@@ -80,7 +80,7 @@ background-buzz/
 │   ├── vite.config.js
 │   └── Dockerfile
 ├── notebooks/
-│   └── train_yolo.ipynb            ← entrenamiento y evaluación en Colab
+│   └── train_yolo.ipynb            ← entrenamiento y evaluación en Kaggle
 ├── docs/
 │   ├── arquitectura.png
 │   ├── decisiones.md               ← decisiones ampliadas y Aprendizajes
@@ -246,4 +246,4 @@ Se escribe al cerrar cada nivel, no al final.
 - Los secretos solo van en `.env`, que nunca se sube; `.env.example` con valores vacíos.
 - Nunca se pegan claves en el chat.
 - `.gitignore` incluye `.env`, `backend/data/`, `backend/models/` y los archivos de vídeo.
-- El dataset vive en Roboflow; los pesos entrenados se guardan en Google Drive y el modelo final se publica como asset de la release.
+- El dataset vive en Roboflow; los pesos entrenados se guardan en la salida de cada versión del notebook de Kaggle y el modelo final se publica como asset de la release.

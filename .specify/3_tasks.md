@@ -59,10 +59,10 @@ Etiquetado con la guía de la spec §1.8. Reparto 70/20/10 agrupado por sesión 
 Conceptos: bounding box, formato YOLO, entrenamiento/validación/test, fuga de datos entre conjuntos, aumento de datos.
 Hecho: dataset v1 exportado con el conjunto de test fijado, y `docs/entrenamiento.md` registra el número de imágenes por marca y conjunto, el preprocesado y el aumento aplicados.
 
-**T-1.3 · Primer entrenamiento en Colab** 🟢 · dep: T-1.2
-`notebooks/train_yolo.ipynb`: YOLO nano preentrenado, transfer learning con el dataset v1, pesos guardados en Drive y evaluación sobre el conjunto de test.
+**T-1.3 · Primer entrenamiento en Kaggle** 🟢 · dep: T-1.2
+`notebooks/train_yolo.ipynb` en Kaggle (spec D-4): YOLO11 nano preentrenado, transfer learning con el dataset v1 (descargado de Roboflow con la clave en los Secrets de Kaggle), pesos en la salida de la versión del notebook y evaluación sobre el conjunto de test.
 Conceptos: transfer learning, épocas, sobreajuste, mAP, precision, recall.
-Hecho: `best.pt` está en Drive, y las métricas del test por marca (modelo v1) están en `docs/entrenamiento.md`.
+Hecho: `best.pt` está en la salida de la versión del notebook y descargado en `backend/models/`, y las métricas del test por marca (modelo v1) están en `docs/entrenamiento.md`.
 
 **T-1.4 · Detección en imagen** 🟢 · dep: T-1.3
 `config.py` con pydantic-settings, `detector/model.py` con Ultralytics, `detector/drawing.py` (caja y nombre de la marca) y `scripts/detect_image.py` (spec §1.5).
