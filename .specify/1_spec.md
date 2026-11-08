@@ -10,7 +10,7 @@ Las bebidas energéticas son uno de los productos con más presencia en el conte
 
 Restricción principal: coste cero. Solo se usan servicios en plan gratuito (Kaggle, Roboflow, Supabase, Render y Vercel), aceptando sus límites de memoria, velocidad y uso.
 
-Alcance comprometido: los cuatro niveles del briefing (Esencial, Medio, Avanzado y Experto), con el Avanzado como objetivo seguro. Desde el reajuste del 28 de octubre (plan de recorte en `3_tasks.md`), el Experto se compromete en local y el despliegue en la nube es opcional. Trabajo individual. Código congelado: domingo 1 de noviembre, 20:00. Entrega: martes 3 de noviembre. Exposición: miércoles 4 de noviembre (online, por confirmar).
+Alcance comprometido: los niveles Esencial, Medio (con inferencia ONNX) y Avanzado del briefing. Tras los reajustes del 28 de octubre y del 7 de noviembre (plan de recorte en `3_tasks.md`), el nivel Experto queda fuera del alcance de esta entrega y pasa a la versión 2. Trabajo individual. Código congelado: lunes 9 de noviembre, 20:00. Entrega y exposición: martes 10 de noviembre.
 
 **Ámbito:** marcas comercializadas en España, analizadas en vídeos de streamers de habla hispana.
 **Marcas (clases del modelo):** `redbull`, `monster`, `burn`.
@@ -21,10 +21,10 @@ Cada nivel se cierra con un **gate** (criterio comprobable) y un **tag** de Git,
 
 | Nivel | Qué añade | Gate | Tag | Milestone |
 |---|---|---|---|---|
-| 🟢 Esencial | Modelo YOLO preentrenado reentrenado con dataset propio; detecta al menos una marca en una imagen y dibuja su caja. Repo con ramas y commits limpios, código documentado y README | Con una imagen que no estaba en el entrenamiento, el modelo dibuja la caja sobre el logo | `v1-esencial` | jue 29 oct |
-| 🟡 Medio | Procesa archivos de vídeo; muestra el nombre de la marca debajo de cada detección | Con un vídeo de prueba, se genera un vídeo de salida con las cajas y el nombre de la marca | `v2-medio` | vie 30 oct |
-| 🟠 Avanzado | Confianza visible junto al nombre; modelo multimarca (tres marcas); base de datos con detecciones y recortes; informe de tiempo y porcentaje (§1.7); model card en el README | Con un vídeo con varias marcas, se guardan detecciones y recortes, se genera el informe y las métricas de §1.11 están medidas y documentadas | `v3-avanzado` | sáb 31 oct |
-| 🔴 Experto | API con procesamiento en segundo plano y validación de archivos; front web responsive; despliegue en Vercel, Render y Supabase | Desde el front se sube un vídeo corto y se obtiene el informe: en local con Docker como compromiso, y desde la URL pública si se completa el despliegue (opcional desde el reajuste del 28 oct) | `v4-experto` | dom 1 nov, 20:00 |
+| 🟢 Esencial | Modelo YOLO preentrenado reentrenado con dataset propio; detecta al menos una marca en una imagen y dibuja su caja. Repo con ramas y commits limpios, código documentado y README | Con una imagen que no estaba en el entrenamiento, el modelo dibuja la caja sobre el logo | `v1-esencial` | dom 8 nov |
+| 🟡 Medio | Procesa archivos de vídeo; muestra el nombre de la marca debajo de cada detección | Con un vídeo de prueba, se genera un vídeo de salida con las cajas y el nombre de la marca | `v2-medio` | dom 8 nov |
+| 🟠 Avanzado | Confianza visible junto al nombre; modelo multimarca (tres marcas); base de datos con detecciones y recortes; informe de tiempo y porcentaje (§1.7); model card en el README | Con un vídeo con varias marcas, se guardan detecciones y recortes, se genera el informe y las métricas de §1.11 están medidas y documentadas | `v3-avanzado` | lun 9 nov, 20:00 |
+| 🔴 Experto | API con procesamiento en segundo plano y validación de archivos; front web responsive; despliegue en Vercel, Render y Supabase | Desde la URL pública del front se sube un vídeo corto y se obtiene el informe | `v4-experto` | Fuera del alcance de esta entrega (reajuste del 7 nov) |
 
 ## 1.3 Decisiones de arquitectura
 
@@ -169,10 +169,11 @@ Nunca se devuelve al usuario el texto de una excepción interna.
 
 | Elemento | Requisito |
 |---|---|
-| Origen | Imágenes propias, como pide el briefing: fotos de la autora y capturas de vídeos de streams |
+| Origen | Imágenes obtenidas por la autora, como pide el briefing: fotogramas de vídeos propios de las latas (Burn y Monster) y capturas de vídeos de streams. Para Red Bull, si no se consigue la lata, imágenes de internet y capturas de vídeos, priorizando escenas reales frente a fotos de catálogo |
+| Procedencia | Las imágenes de terceros solo se usan para entrenar: no se redistribuyen y el proyecto de Roboflow es privado. La procedencia de cada lote se documenta en `docs/entrenamiento.md` |
 | Mínimo por marca | 100 imágenes originales con el logo (antes del aumento de datos) |
 | Imágenes negativas | Al menos 50 sin ningún logo de las tres marcas (escritorios, setups, streams, otras bebidas), para reducir falsos positivos |
-| Variedad en cada marca | Lata en la mano · en la mesa o el escritorio · lejos y pequeña · poca luz o luz de pantalla · parcialmente tapada · junto a otras marcas |
+| Variedad en cada marca | Lata en la mano · en la mesa o el escritorio · lejos y pequeña · poca luz o luz de pantalla, siempre con el logo visible (la oscuridad total se descarta: no representa un stream, que siempre está iluminado) · parcialmente tapada · junto a otras marcas |
 | Monster | Varias variantes de color de lata |
 | Capturas de streams reales | Las que se encuentren (ver R-6) |
 
@@ -181,7 +182,7 @@ Nunca se devuelve al usuario el texto de una excepción interna.
 | Situación | Regla |
 |---|---|
 | Qué se etiqueta | **Solo el logo**, no la lata entera |
-| Qué es el logo | El emblema de la marca: su símbolo y su nombre cuando aparecen juntos formando una unidad |
+| Qué es el logo | El símbolo de la marca, sin las palabras: la garra de Monster, la llama de Burn y los toros de Red Bull. Es la misma regla para todas las marcas y el símbolo se ve desde casi cualquier ángulo, mientras que el nombre se corta al girar la lata (decisión del 7 nov) |
 | Ajuste de la caja | Ajustada al logo visible, sin margen extra |
 | Varios logos | Una caja por cada logo visible (dos latas de la misma marca = dos cajas) |
 | Logo parcialmente tapado | Se etiqueta si la marca se reconoce; si no, no |
@@ -247,9 +248,12 @@ Los objetivos son **orientativos**: se revisan con los datos del primer entrenam
 | Modelo | mAP50, mAP50-95, precision y recall por marca sobre el conjunto de test | mAP50 global ≥ 0,70 |
 | Informe | 2 vídeos de referencia (20-60 s) con los intervalos de cada marca anotados a mano; se compara el porcentaje del informe con el real | Error ≤ 10 puntos porcentuales por marca |
 | Rendimiento | Tiempo de análisis en el portátil (CPU) con el muestreo de D-6 | Vídeo de 30 s en ≤ 2 minutos |
+| Revisión manual | Revisar a ojo las predicciones que guarda Ultralytics sobre validación y test, y una muestra de etiquetas del dataset | Errores de etiquetado encontrados y corregidos |
+| Análisis de fallos | Con la matriz de confusión y la revisión manual, clasificar 15-20 errores (falsos positivos, logos no detectados y confusiones entre marcas) según su causa (tamaño, luz, oclusión, variante…) | Causas documentadas en la model card |
 
 - El umbral de confianza se ajusta con uno de los vídeos de referencia y se comprueba con el otro.
 - La comparación de rendimiento decide entre YOLO nano y small (P-2).
+- Cada entrenamiento documenta en `docs/entrenamiento.md` sus hiperparámetros con su motivo (épocas, tamaño de lote, umbral) y guarda checkpoints para poder reanudarse si la sesión se corta.
 
 ## 1.12 Cobertura del briefing
 
@@ -291,17 +295,19 @@ Los IDs de tarea se añaden a esta tabla al cerrar `3_tasks.md`.
 | App móvil | Los usuarios trabajan en ordenador; se cubre con web responsive |
 | Análisis por enlace de YouTube u otras plataformas | Puede chocar con sus condiciones de uso; se suben archivos |
 | TypeScript en el front | Mejora futura |
+| Nivel Experto (API, front y despliegue) | Reajuste del 7 nov: no cabe en el tiempo disponible. Versión 2 del portfolio |
 
 **Extras (issues con la label `extras`, si hay tiempo):**
 - E-1 · Gráfica de línea de tiempo por marca.
 - E-2 · Exportar el informe a CSV.
 - E-3 · Modo oscuro en el front.
+- E-4 · Informe redactado en lenguaje natural con un LLM, a partir del informe por marca.
 
 ## 1.14 Riesgos
 
 | # | Riesgo | Impacto | Mitigación |
 |---|---|---|---|
-| R-1 | Poco tiempo (6 días hasta la congelación, trabajo individual) | Alto | Cada nivel termina con una versión completa y etiquetada; plan de recorte en `3_tasks.md`, aplicado el 28 oct (despliegue opcional); el Avanzado es el objetivo seguro |
+| R-1 | Poco tiempo (unas 16 horas desde el 7 nov hasta la congelación, trabajo individual) | Alto | Cada nivel termina con una versión completa y etiquetada; plan de recorte en `3_tasks.md`, aplicado el 28 oct y el 7 nov (Experto fuera del alcance) |
 | R-2 | Crear y etiquetar el dataset lleva más de lo previsto | Alto | Empezar el primer día; tres marcas; etiquetado asistido |
 | R-3 | Límites o cortes de la GPU gratuita (se cumplió en Colab el 29 oct) | Medio | Entrenamiento en Kaggle (D-4), con Colab y CPU como alternativas; pesos en la salida de cada versión del notebook |
 | R-4 | Logos pequeños, tapados o con mala luz en los streams | Medio | Fotos tipo stream, capturas reales y aumento de datos; limitaciones documentadas en la model card |
@@ -313,6 +319,7 @@ Los IDs de tarea se añaden a esta tabla al cerrar `3_tasks.md`.
 | R-10 | Falla la conexión durante la exposición online | Medio | Vídeo de la demo grabado; demo en local sin depender de la nube |
 | R-11 | Documentación de Tailwind 3 mezclada con la 4 | Bajo | Seguir solo documentación de Tailwind 4 |
 | R-12 | El preprocesado y el postprocesado de ONNX se programan a mano (D-8) y pueden no coincidir con los de Ultralytics | Medio | Comparar las cajas de ONNX con las de Ultralytics sobre las mismas imágenes de test antes de cerrar el nivel Medio; usar la eliminación de cajas repetidas de OpenCV |
+| R-13 | No conseguir una lata de Red Bull | Medio | Imágenes de internet y capturas de vídeos (§1.8); si no bastan, el modelo pasa a dos clases (el briefing pide más de una marca). Estado (8 nov): el modelo v1 tiene dos clases (`burn`, `monster`); Red Bull entra en una versión posterior si se consiguen imágenes |
 
 ## 1.15 Decisiones pendientes
 
