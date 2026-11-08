@@ -10,7 +10,7 @@ Las bebidas energéticas son uno de los productos con más presencia en el conte
 
 Restricción principal: coste cero. Solo se usan servicios en plan gratuito (Kaggle, Roboflow, Supabase, Render y Vercel), aceptando sus límites de memoria, velocidad y uso.
 
-Alcance comprometido: los niveles Esencial, Medio (con inferencia ONNX) y Avanzado del briefing. Tras los reajustes del 28 de octubre y del 7 de noviembre (plan de recorte en `3_tasks.md`), el nivel Experto queda fuera del alcance de esta entrega y pasa a la versión 2. Trabajo individual. Código congelado: lunes 9 de noviembre, 20:00. Entrega y exposición: martes 10 de noviembre.
+Alcance comprometido: los niveles Esencial, Medio (con inferencia ONNX) y Avanzado del briefing. Tras los reajustes del 28 de octubre y del 7 de noviembre (plan de recorte en `3_tasks.md`), el nivel Experto completo pasa a la versión 2. En esta entrega se hace un **Experto reducido** en local (decisión del 8 nov, T-4.6): un front React que sube un vídeo y muestra el vídeo con cajas y el informe, después del nivel Avanzado y solo si está terminado antes de la congelación. Trabajo individual. Código congelado: lunes 9 de noviembre, 20:00. Entrega y exposición: martes 10 de noviembre.
 
 **Ámbito:** marcas comercializadas en España, analizadas en vídeos de streamers de habla hispana.
 **Marcas (clases del modelo):** `redbull`, `monster`, `burn`.
@@ -24,7 +24,7 @@ Cada nivel se cierra con un **gate** (criterio comprobable) y un **tag** de Git,
 | 🟢 Esencial | Modelo YOLO preentrenado reentrenado con dataset propio; detecta al menos una marca en una imagen y dibuja su caja. Repo con ramas y commits limpios, código documentado y README | Con una imagen que no estaba en el entrenamiento, el modelo dibuja la caja sobre el logo | `v1-esencial` | dom 8 nov |
 | 🟡 Medio | Procesa archivos de vídeo; muestra el nombre de la marca debajo de cada detección | Con un vídeo de prueba, se genera un vídeo de salida con las cajas y el nombre de la marca | `v2-medio` | dom 8 nov |
 | 🟠 Avanzado | Confianza visible junto al nombre; modelo multimarca (tres marcas); base de datos con detecciones y recortes; informe de tiempo y porcentaje (§1.7); model card en el README | Con un vídeo con varias marcas, se guardan detecciones y recortes, se genera el informe y las métricas de §1.11 están medidas y documentadas | `v3-avanzado` | lun 9 nov, 20:00 |
-| 🔴 Experto | API con procesamiento en segundo plano y validación de archivos; front web responsive; despliegue en Vercel, Render y Supabase | Desde la URL pública del front se sube un vídeo corto y se obtiene el informe | `v4-experto` | Fuera del alcance de esta entrega (reajuste del 7 nov) |
+| 🔴 Experto | API con procesamiento en segundo plano y validación de archivos; front web responsive; despliegue en Vercel, Render y Supabase | Desde la URL pública del front se sube un vídeo corto y se obtiene el informe | `v4-experto` | Completo en la versión 2. En esta entrega, reducido en local (T-4.6, lun 9, 20:00) |
 
 ## 1.3 Decisiones de arquitectura
 
@@ -295,7 +295,7 @@ Los IDs de tarea se añaden a esta tabla al cerrar `3_tasks.md`.
 | App móvil | Los usuarios trabajan en ordenador; se cubre con web responsive |
 | Análisis por enlace de YouTube u otras plataformas | Puede chocar con sus condiciones de uso; se suben archivos |
 | TypeScript en el front | Mejora futura |
-| Nivel Experto (API, front y despliegue) | Reajuste del 7 nov: no cabe en el tiempo disponible. Versión 2 del portfolio |
+| Nivel Experto completo (procesamiento en segundo plano, contrato asíncrono de la API, Docker del backend y despliegue) | Reajuste del 7 nov: no cabe en el tiempo disponible. Versión 2 del portfolio. En esta entrega solo el Experto reducido de T-4.6 |
 
 **Extras (issues con la label `extras`, si hay tiempo):**
 - E-1 · Gráfica de línea de tiempo por marca.
@@ -307,7 +307,7 @@ Los IDs de tarea se añaden a esta tabla al cerrar `3_tasks.md`.
 
 | # | Riesgo | Impacto | Mitigación |
 |---|---|---|---|
-| R-1 | Poco tiempo (unas 16 horas desde el 7 nov hasta la congelación, trabajo individual) | Alto | Cada nivel termina con una versión completa y etiquetada; plan de recorte en `3_tasks.md`, aplicado el 28 oct y el 7 nov (Experto fuera del alcance) |
+| R-1 | Poco tiempo (unas 16 horas desde el 7 nov hasta la congelación, trabajo individual) | Alto | Cada nivel termina con una versión completa y etiquetada; plan de recorte en `3_tasks.md`, aplicado el 28 oct y el 7 nov (Experto completo fuera del alcance; reducido en local con límite fijo, 8 nov) |
 | R-2 | Crear y etiquetar el dataset lleva más de lo previsto | Alto | Empezar el primer día; tres marcas; etiquetado asistido |
 | R-3 | Límites o cortes de la GPU gratuita (se cumplió en Colab el 29 oct) | Medio | Entrenamiento en Kaggle (D-4), con Colab y CPU como alternativas; pesos en la salida de cada versión del notebook |
 | R-4 | Logos pequeños, tapados o con mala luz en los streams | Medio | Fotos tipo stream, capturas reales y aumento de datos; limitaciones documentadas en la model card |

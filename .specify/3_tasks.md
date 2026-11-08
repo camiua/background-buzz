@@ -148,7 +148,7 @@ Hecho: la model card refleja las métricas reales de T-3.6, incluidas las que no
 **T-3.GATE · Nivel Avanzado y código congelado** 🟠 · lun 9, 20:00 · dep: T-3.1 a T-3.7
 Hecho: gate de la spec §1.2 cumplido, PR `develop` → `main` fusionado y tag `v3-avanzado`. A partir de aquí solo se corrigen errores.
 
-## Fase 4 — Nivel Experto (fuera del alcance desde el reajuste del 7 de noviembre; versión 2)
+## Fase 4 — Nivel Experto (completo en la versión 2; en esta entrega, solo T-4.6)
 
 **T-4.1 · API** 🔴 · versión 2
 `main.py`, `api/schemas.py` y `api/routes/` con las cuatro rutas de la spec §1.6. Validación de archivos (§1.10), errores controlados y CORS. Tests de las rutas con el detector falso.
@@ -174,6 +174,11 @@ Hecho: desde la web se sube un vídeo, se ve el avance y aparece el informe; en 
 Supabase (base de datos y bucket de recortes, `storage.py` con Supabase), Render (API desde el `Dockerfile`) y Vercel (front con `VITE_API_URL`). CORS limitado al front. Se comprueban las condiciones de los planes gratuitos (R-9).
 Conceptos: variables de entorno en producción, CORS, arranque en frío.
 Hecho: gate de la spec §1.2 Experto cumplido desde la URL pública.
+
+**T-4.6 · Experto reducido en local** 🔴 · lun 9, después de T-3.GATE y hasta las 20:00 · dep: T-3.GATE
+Una ruta de FastAPI que recibe un vídeo, lo analiza con `services/` sin segundo plano (la petición espera a que termine) y devuelve el informe por marca y el vídeo con cajas. Front con Vite + React + Tailwind 4: subida del vídeo, estado de carga y error, vídeo de salida y tabla del informe. Sin Docker del backend ni despliegue. La ruta aún no sigue el contrato asíncrono de la spec §1.6, que queda para la versión 2 (T-4.1 y T-4.2).
+Conceptos: subida de archivos (multipart), CORS, componentes, `useState`, `FormData`.
+Hecho: en local, desde el navegador se sube un vídeo corto y se ven el vídeo con cajas y el informe. Si a las 20:00 del lunes no está terminado, no se entrega y la demo se hace por terminal.
 
 **T-4.GATE · Nivel Experto** 🔴 · versión 2 · dep: T-4.1 a T-4.5
 Hecho: gate de la spec §1.2 Experto cumplido, PR `develop` → `main` fusionado y tag `v4-experto`.
@@ -216,7 +221,7 @@ Dos ensayos cronometrados. Demo en local preparada, vídeo de la demo listo y pr
 | mar 27 – mié 28 | Fase 0 completa | |
 | sáb 7 | T-1.1 y T-1.2 · T-1.3 lanzado en segundo plano en Kaggle · T-2.1 si hay margen | |
 | dom 8 | T-1.4 y T-1.5 · Fase 2 con ONNX (T-2.1 a T-2.6) · T-3.1 | `v1-esencial` · `v2-medio` |
-| lun 9 | T-3.2 a T-3.7 · código congelado a las 20:00 · T-5.1 | `v3-avanzado` |
+| lun 9 | T-3.2 a T-3.7 · T-4.6 si hay margen después del gate · código congelado a las 20:00 · T-5.1 | `v3-avanzado` |
 | lun 9 (noche) – mar 10 | T-5.2 a T-5.5 · ensayo y plan B · entrega y exposición | `v1.0` |
 
 ## Plan de recorte
@@ -246,6 +251,16 @@ La entrega se aplaza al martes 10 de noviembre, con la exposición ese mismo dí
 - ONNX se mantiene como parte del nivel Medio, con la red de seguridad del punto 3.
 - Se incorporan prácticas de evaluación: checkpoints y reanudación (T-1.3), documentación de épocas y lote (T-1.3), cajas legibles (T-1.4), revisión manual, matriz de confusión y análisis de fallos (T-3.6 y T-3.7). Se añade el extra E-4.
 - T-2.1 deja de depender del nivel Esencial, porque no necesita el modelo.
+
+### Reajuste del 8 de noviembre
+
+El front se considera importante para la demo. Se añade un **Experto reducido en local** (T-4.6) con tres condiciones:
+
+- **Alcance:** React y una ruta de FastAPI en local; sin procesamiento en segundo plano ni despliegue.
+- **Cuándo:** después de T-3.GATE; el nivel Avanzado va primero.
+- **Límite:** si a las 20:00 del lunes no está terminado, no se entrega y la demo se hace por terminal. Es lo primero que se recorta, antes que los extras.
+
+El modelo v1 se entrena con dos clases (`burn` y `monster`); Red Bull queda pendiente (R-13).
 - Código congelado: lunes 9 a las 20:00.
 
 Al congelar el código no entra ninguna funcionalidad nueva. Lo que no esté terminado el lunes a las 20:00 se presenta sin ello.

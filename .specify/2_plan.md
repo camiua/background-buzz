@@ -207,7 +207,7 @@ Closes #N
 | Nivel Esencial | dom 8 nov |
 | Nivel Medio | dom 8 nov |
 | Nivel Avanzado | lun 9 nov, 20:00 (código congelado) |
-| Nivel Experto | Fuera del alcance (versión 2) |
+| Nivel Experto | Reducido en local (T-4.6, lun 9 hasta las 20:00); completo en la versión 2 |
 | Entrega | mar 10 nov (entrega y exposición) |
 | Extras | sin fecha |
 
