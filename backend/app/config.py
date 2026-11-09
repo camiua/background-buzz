@@ -20,6 +20,7 @@ class Settings(BaseSettings):
 
     model_path: Path = Path("models/best.pt")
     confidence_threshold: float = Field(default=0.5, ge=0, le=1)
+    sample_fps: float = Field(default=5, gt=0)
 
     @property
     def model_file(self) -> Path:
