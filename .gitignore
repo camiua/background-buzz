@@ -233,3 +233,4 @@ backend/models/
 *.mp4
 *.mov
 *.avi
+backend/runs/
