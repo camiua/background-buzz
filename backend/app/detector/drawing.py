@@ -16,11 +16,17 @@ TEXT_COLOR = (255, 255, 255)  # blanco
 FONT = cv2.FONT_HERSHEY_SIMPLEX
 
 
+def label_text(detection: Detection) -> str:
+    """Texto de la etiqueta: la marca y su confianza (por ejemplo, `monster 87%`)."""
+    return f"{detection.brand} {detection.confidence:.0%}"
+
+
 def draw_detections(image: np.ndarray, detections: list[Detection]) -> np.ndarray:
-    """Devuelve una copia de la imagen con la caja y el nombre de cada marca."""
+    """Devuelve una copia de la imagen con la caja y la etiqueta de cada marca."""
     output = image.copy()
+    height, width = output.shape[:2]
     # El grosor y el texto crecen con la imagen, para que se lean en fotos grandes.
-    scale = max(output.shape[:2]) / 1000
+    scale = max(height, width) / 1000
     line = max(2, round(3 * scale))
     font_scale = max(0.5, 0.8 * scale)
     text_line = max(1, round(2 * scale))
@@ -31,23 +37,21 @@ def draw_detections(image: np.ndarray, detections: list[Detection]) -> np.ndarra
         x1, y1, x2, y2 = detection.box
         cv2.rectangle(output, (x1, y1), (x2, y2), color, line)
 
-        (text_w, text_h), baseline = cv2.getTextSize(
-            detection.brand, FONT, font_scale, text_line
-        )
+        text = label_text(detection)
+        (text_w, text_h), baseline = cv2.getTextSize(text, FONT, font_scale, text_line)
+        label_w = text_w + 2 * padding
         label_h = text_h + baseline + 2 * padding
         # La etiqueta va debajo de la caja; si no cabe, sube dentro de la caja.
-        top = y2 if y2 + label_h <= output.shape[0] else y2 - label_h
+        top = y2 if y2 + label_h <= height else y2 - label_h
+        # Y se desplaza a la izquierda si se saldría por el borde derecho.
+        left = max(0, min(x1, width - label_w))
         cv2.rectangle(
-            output,
-            (x1, top),
-            (x1 + text_w + 2 * padding, top + label_h),
-            color,
-            cv2.FILLED,
+            output, (left, top), (left + label_w, top + label_h), color, cv2.FILLED
         )
         cv2.putText(
             output,
-            detection.brand,
-            (x1 + padding, top + padding + text_h),
+            text,
+            (left + padding, top + padding + text_h),
             FONT,
             font_scale,
             TEXT_COLOR,
